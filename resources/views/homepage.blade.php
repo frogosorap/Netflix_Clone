@@ -9,4 +9,4 @@
 <body>
   <h1 class="text-amber-500 text-3xl font-bold underline">Netflix</h1>
 </body>
-</html>r
+</html>
