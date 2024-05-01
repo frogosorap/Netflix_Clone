@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
-
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class MoviesController extends Controller
 {
@@ -22,7 +22,7 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        //
+        return view('movies.create');
     }
 
     /**
@@ -30,7 +30,20 @@ class MoviesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required', 
+            'description' => 'required',
+            'release_date' => 'required',
+            'trailer_url' => 'required', 
+            'movie_url' => 'required', 
+            'thumbnail_image' => 'required', 
+        ]);
+
+        $newImageName = uniqueid() . '-' . $request->title . '.' . $request->image->extension();
+
+        $request->image->move(public_path('images'), $newImageName);
+
+        $slug = SlugService::createSlug(Movie::class, 'slug', $request->title);
     }
 
     /**

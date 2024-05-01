@@ -7,6 +7,11 @@
     </div>
 
 
+    @if(Auth::check())
+    <div>
+        <a href="/movie/create" class="bg-blue-700 p-3 m-[50px] text-white rounded-md">Add a movie</a>
+    </div>
+    @endif
     @foreach ($movies as $movie)
         <div>
         <div>
