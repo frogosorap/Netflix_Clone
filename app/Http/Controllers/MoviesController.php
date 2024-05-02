@@ -39,11 +39,23 @@ class MoviesController extends Controller
             'thumbnail_image' => 'required', 
         ]);
 
-        $newImageName = uniqueid() . '-' . $request->title . '.' . $request->image->extension();
+    $newImageName = uniqid() . '-' . $request->title . '.' . $request->thumbnail_image->extension();
 
-        $request->image->move(public_path('images'), $newImageName);
+        $request->thumbnail_image->move(public_path('images'), $newImageName);
+        
+          Movie::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'release_date' => $request->input('release_date'),
+            'trailer_url' => $request->input('trailer_url'),
+            'movie_url' => $request->input('movie_url'),
+            'slug' => SlugService::createSlug(Movie::class, 'slug', $request->title),
+            'thumbnail_image_path' => $newImageName,
+            'user_id' => auth()->user()->id
+        ]);
 
-        $slug = SlugService::createSlug(Movie::class, 'slug', $request->title);
+        return redirect('/blog')
+            ->with('message', 'Your post has been added!');
     }
 
     /**

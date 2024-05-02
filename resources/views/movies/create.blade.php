@@ -2,14 +2,16 @@
 
 @section('content')
 @if ($errors->any())
-<div>
-    <ul>
-        @foreach ($errors as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-    
+    <div class="w-4/5 m-auto mt-8">
+        <div class="bg-red-200 text-red-700 px-4 py-3 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-2">Oops! Something went wrong.</h2>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="mb-1">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 @endif
 <div class="w-4/5 m-auto text-center">
 
@@ -17,24 +19,24 @@
         @csrf
 
         <div>
-            <input type="text" placeholder="movie title">
+            <input type="text" placeholder="movie title" name="title">
         </div>
 
         <div>
-            <input type="text" placeholder="movie description">
+            <input type="text" placeholder="movie description" name="description">
         </div>
         <div>
-            <input type="date" id="start" name="movie-release" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+            <input type="date" id="start" name="release_date" value="2018-07-22" min="2018-01-01" max="2018-12-31"/>
         </div>
         <div>
-            <input type="text" placeholder="movie trailer url">
+            <input type="text" placeholder="movie trailer url" name="trailer_url">
         </div>
         <div>
-            <input type="text" placeholder="movie url">
+            <input type="text" placeholder="movie url" name="movie_url">
         </div>
         <div>
             <label for="movie_thumbnail_image">Upload Movie Image</label>
-            <input type="file" name="image" class="hidden" id="movie_thumbnail_image">
+            <input type="file" name="thumbnail_image" class="hidden" id="movie_thumbnail_image">
         </div>
 
         <div>
