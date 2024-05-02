@@ -3,7 +3,7 @@
 use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserCRUDController;
 
 
 
@@ -18,3 +18,7 @@ Auth::routes();
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::resource('/movie', UserCRUDController::class);
+
+Route::resource('/users', UserCRUDController::class);
