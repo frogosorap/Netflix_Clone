@@ -1,4 +1,5 @@
-{{-- @extends('layouts.app') --}}
+{{-- resources/views/movies/create.blade.php --}}
+@extends('layouts.app')
 
 @section('content')
 @if ($errors->any())
@@ -15,7 +16,7 @@
 @endif
 <div class="w-4/5 m-auto text-center">
 
-    <form action="/movie" method="POST" enctype="multipart/form-data">
+    <form action="/movie" method="POST">
         @csrf
 
         <div>
@@ -34,13 +35,10 @@
         <div>
             <input type="text" placeholder="movie url" name="movie_url">
         </div>
-        <div>
-            <label for="movie_thumbnail_image">Upload Movie Image</label>
-            <input type="file" name="thumbnail_image" class="hidden" id="movie_thumbnail_image">
-        </div>
 
         <div>
             <button type="submit">Add Movie</button>
         </div> 
     </form>
 </div>
+@endsection

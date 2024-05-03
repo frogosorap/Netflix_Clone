@@ -14,7 +14,7 @@ class MoviesController extends Controller
     public function index()
     {
         return view('movies.index')
-            ->with('movies', Movie::orderBy('release_date', 'DESC')->get()); 
+            ->with('movies', Movie::orderBy('release_date', 'DESC')->get());
     }
 
     /**
@@ -31,32 +31,29 @@ class MoviesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required', 
+            'title' => 'required',
             'description' => 'required',
             'release_date' => 'required',
-            'trailer_url' => 'required', 
-            'movie_url' => 'required', 
-            'thumbnail_image' => 'required', 
+            'trailer_url' => 'required',
+            'movie_url' => 'required',
         ]);
 
-    $newImageName = uniqid() . '-' . $request->title . '.' . $request->thumbnail_image->extension();
-
-        $request->thumbnail_image->move(public_path('images'), $newImageName);
-        
-          Movie::create([
+        $movieData = [
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'release_date' => $request->input('release_date'),
             'trailer_url' => $request->input('trailer_url'),
             'movie_url' => $request->input('movie_url'),
             'slug' => SlugService::createSlug(Movie::class, 'slug', $request->title),
-            'thumbnail_image_path' => $newImageName,
-            'user_id' => auth()->user()->id
-        ]);
+            'user_id' => auth()->user()->id,
+        ];
 
-        return redirect('/blog')
-            ->with('message', 'Your post has been added!');
+        Movie::create($movieData);
+
+        return redirect('/blog')->with('message', 'Your post has been added!');
     }
+
+
 
     /**
      * Display the specified resource.
