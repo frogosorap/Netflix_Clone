@@ -1,4 +1,3 @@
-{{-- resources/views/movies/create.blade.php --}}
 @extends('layouts.app')
 
 @section('content')

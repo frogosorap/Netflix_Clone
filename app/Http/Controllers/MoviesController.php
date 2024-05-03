@@ -45,12 +45,11 @@ class MoviesController extends Controller
             'trailer_url' => $request->input('trailer_url'),
             'movie_url' => $request->input('movie_url'),
             'slug' => SlugService::createSlug(Movie::class, 'slug', $request->title),
-            'user_id' => auth()->user()->id,
         ];
 
         Movie::create($movieData);
 
-        return redirect('/blog')->with('message', 'Your post has been added!');
+        return redirect('/movie')->with('message', 'Your movie has been added!');
     }
 
 
@@ -58,9 +57,10 @@ class MoviesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        //
+        $movie = Movie::where('slug', $slug)->firstOrFail(); // Assuming the slug is unique
+        return view('movies.show', ['movie' => $movie]);
     }
 
     /**

@@ -14,15 +14,15 @@ class CreateMoviesTable extends Migration
     public function up()
     {
         Schema::create('movies', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('title');
             $table->longText('description');
             $table->date('release_date');
             $table->string('trailer_url');
             $table->string('movie_url');
             $table->string('slug');
-            $table->timestamps();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamp('updated_at');
+            $table->timestamp('created_at');
         });
     }
 
