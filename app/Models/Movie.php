@@ -11,11 +11,12 @@ class Movie extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $fillable = ['title', 'description', 'release_date', 'trailer_url', 'movie_url', 'thumbnail_image', 'slug'];
-    public function sluggable(): array{
+    protected $fillable = ['title', 'description', 'release_date', 'trailer_url', 'movie_url', 'slug'];
+    public function sluggable(): array
+    {
         return [
-            'slug'=>[
-                'source'=> 'title'
+            'slug' => [
+                'source' => 'title'
             ]
         ];
     }
