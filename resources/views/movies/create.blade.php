@@ -4,7 +4,7 @@
 @if ($errors->any())
     <div class="w-4/5 mx-auto mt-8">
         <div class="bg-red-200 text-red-700 px-4 py-3 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-2">Oops! Something went wrong.</h2>
+            <h2 class="text-xl font-semibold mb-2 ">Oops! Something went wrong.</h2>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li class="mb-1">{{ $error }}</li>
@@ -20,6 +20,7 @@
             @csrf
 
             <div class="mb-4">
+                <h1 class="hs-cusotm">Hello</h1>
                 <label class="block text-white text-sm font-bold mb-2" for="title">
                     Movie Title
                 </label>

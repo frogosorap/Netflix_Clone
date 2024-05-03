@@ -4,6 +4,7 @@ use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCRUDController;
+use App\Http\Controllers\Auth\LoginController;
 
 
 
