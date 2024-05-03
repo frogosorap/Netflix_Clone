@@ -1,31 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w-4/5 m-auto text-center">
-    <div>
-        <h1 class="text-4xl">Movies</h1>
-    </div>
-
-
-    @if(Auth::check())
-    <div>
-        <a href="/movie/create" class="bg-blue-700 p-3 m-[50px] text-white rounded-md">Add a movie</a>
-    </div>
-    @endif
-    @foreach ($movies as $movie)
+<div class="bg-black text-white">
+    <div class="w-4/5 mx-auto text-center py-10">
         <div>
-        <div>
-             <iframe width="420" height="315"
-            src="{{ $movie->trailer_url }}">
-        </iframe>
+            <h1 class="text-4xl">Movies</h1>
         </div>
-        <div>
-            <h2 class="text-red-700">{{ $movie->title }}</h2>
-            <p>{{ $movie->description }}</p>
-           
 
+        @if(Auth::check())
+        <div>
+            <a href="/movie/create" class="bg-red-700 py-3 px-6 mt-8 inline-block rounded-md">Add a Movie</a>
+        </div>
+        @endif
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10">
+            @foreach ($movies as $movie)
+            <div class="bg-red-800 rounded-lg p-4 shadow-md">
+                <div class="aspect-w-16 aspect-h-9">
+                    <iframe class="w-full h-full" src="{{ $movie->trailer_url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="mt-4">
+                    <h2 class="text-2xl font-semibold">{{ $movie->title }}</h2>
+                    <p class="text-sm">{{ $movie->description }}</p>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
-    @endforeach
-    
 </div>
+@endsection
