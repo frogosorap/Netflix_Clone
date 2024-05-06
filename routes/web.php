@@ -5,6 +5,7 @@ use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCRUDController;
 use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Http\Request;
 
 
 
@@ -47,3 +48,17 @@ Route::get('/browse', function (Illuminate\Http\Request $request) {
 
     return view('browse', ['movies' => $movies]);
 })->name('browse');
+
+
+// Route::get('/search', function () {
+//     return view('search');
+// });
+
+Route::get('/search', function (Request $request) {
+    $query = $request->query('query');
+    $movies = \App\Models\Movie::where('title', 'like', '%' . $query . '%')
+                              ->orWhere('description', 'like', '%' . $query . '%')
+                              ->get();
+
+    return view('search', ['movies' => $movies]);
+})->name('search');
