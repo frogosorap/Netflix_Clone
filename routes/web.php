@@ -27,10 +27,23 @@ Route::get('/', function () {
     return redirect()->route('movie.index');
 });
 
-Route::get('/browse', function () {
-    // Retrieve movies data from your database or any other source
-    $movies = \App\Models\Movie::all(); // Assuming you want to fetch all movies
+// Route::get('/browse', function () {
+//     // Retrieve movies data from your database or any other source
+//     $movies = \App\Models\Movie::all(); // Assuming you want to fetch all movies
     
-    // Pass movies data to the view
+//     // Pass movies data to the view
+//     return view('browse', ['movies' => $movies]);
+// })->name('browse');
+
+Route::get('/browse', function (Illuminate\Http\Request $request) {
+    $movies = \App\Models\Movie::query();
+
+    if ($request->has('sort')) {
+        $sortDirection = $request->input('sort');
+        $movies->orderBy('title', $sortDirection);
+    }
+
+    $movies = $movies->get();
+
     return view('browse', ['movies' => $movies]);
-});
+})->name('browse');
