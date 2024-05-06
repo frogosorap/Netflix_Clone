@@ -26,3 +26,11 @@ Route::resource('/users', UserCRUDController::class);
 Route::get('/', function () {
     return redirect()->route('movie.index');
 });
+
+Route::get('/browse', function () {
+    // Retrieve movies data from your database or any other source
+    $movies = \App\Models\Movie::all(); // Assuming you want to fetch all movies
+    
+    // Pass movies data to the view
+    return view('browse', ['movies' => $movies]);
+});

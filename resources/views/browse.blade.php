@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <h1>Browse Page</h1>
+</div>
+
 <div class="bg-black text-white">
     <div class="w-4/5 mx-auto text-center py-10">
     
         <div>
-            <h1 class="text-4xl">Movies</h1>
+            <h1 class="text-4xl">Browse</h1>
         </div>
 
         @if(Auth::check())
