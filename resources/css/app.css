@@ -11,6 +11,57 @@ font-family: "Oswald", sans-serif;
 font-family: "Bebas Neue", sans-serif; 
 */
 
+/* =============================== NAVBAR =============================== */
+
+.navbar{
+    background-color: transparent;
+    display: flex;
+    font-family: "Bebas Neue", sans-serif;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar_items{
+    display: flex;
+    align-items: center;
+}
+
+#navbar_logo{
+    margin-right: 40px;
+}
+
+#navbar_links{
+    display: flex;
+}
+
+#navbar_links a {
+    display: inline-block;
+    font-family: "Bebas Neue", sans-serif; 
+    font-size: 20px;
+    margin-left: 6px;
+    margin-right: 6px;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease, text-decoration 0.3s ease, font-size 0.3s ease;
+}
+
+#navbar_links a:hover {
+    text-decoration: underline;
+    transform: scale(0.95);
+    color:#ccc;
+}
+
+/* =============================== BROWSE =============================== */
+
+
+
+/* =============================== SEARCH =============================== */
+
+
+/* =============================== ADMIN DASHBOARD =============================== */
+
+
 * {
     font-family: "Oswald", sans-serif;
     box-sizing: border-box;

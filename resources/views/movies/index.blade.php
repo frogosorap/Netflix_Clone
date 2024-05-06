@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+</div>
+<p>Video</p>
+</div>
 <div class="bg-black text-white">
     <div class="w-4/5 mx-auto text-center py-10">
+    
         <div>
             <h1 class="text-4xl">Movies</h1>
         </div>
@@ -24,6 +28,7 @@
                     <p class="text-sm">{{ $movie->description }}</p>
                 </div>
             </div>
+            
             @endforeach
         </div>
     </div>
