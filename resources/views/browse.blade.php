@@ -46,6 +46,7 @@
         </div>
     </div>
 </div>
+@include('footer')
 
 <!-- JavaScript to automatically submit the form when dropdown option changes -->
 <script>
