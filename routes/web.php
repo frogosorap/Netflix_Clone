@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Requests\MovieRequest;
 
+
 Route::get('/index', [PagesController::class, "index"]);
 
 // Route::resource('/movie', MoviesController::class);
@@ -89,3 +90,17 @@ Route::get('/browse', function (Illuminate\Http\Request $request) {
 
     return view('browse', ['movies' => $movies]);
 })->name('browse');
+
+
+// Route::get('/search', function () {
+//     return view('search');
+// });
+
+Route::get('/search', function (Request $request) {
+    $query = $request->query('query');
+    $movies = \App\Models\Movie::where('title', 'like', '%' . $query . '%')
+                              ->orWhere('description', 'like', '%' . $query . '%')
+                              ->get();
+
+    return view('search', ['movies' => $movies]);
+})->name('search');

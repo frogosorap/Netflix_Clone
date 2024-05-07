@@ -1,36 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Browse Page</h1>
-</div>
-
 <div class="bg-black text-white">
     <div class="w-4/5 mx-auto text-center py-10">
-    
         <div>
-            <h1 class="text-4xl">Browse</h1>
+            <h1 class="text-4xl">Search</h1>
         </div>
+
+        <form action="{{ route('search') }}" method="GET" class="mt-8">
+            <input type="text" name="query" placeholder="Search for movies..." class="bg-gray-800 text-white py-2 px-4 rounded-md w-full">
+            <button type="submit" class="bg-red-700 py-3 px-6 mt-4 inline-block rounded-md">Search</button>
+        </form>
 
         @if(Auth::check())
         <div>
             <a href="/movie/create" class="bg-red-700 py-3 px-6 mt-8 inline-block rounded-md">Add a Movie</a>
         </div>
         @endif
-        
-        <!-- Dropdown Filter -->
-        <div class="mt-8">
-            <form id="sortForm" action="{{ route('browse') }}" method="GET">
-                <label for="sort">Sort by:</label>
-                <select name="sort" id="sort" class="bg-gray-200 text-gray-900 rounded-md px-3 py-2">
-                    <option value="">Sort By Name</option>
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-            </form>
-        </div>
-        
-        <!-- Movies Grid -->
+
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10">
             @foreach ($movies as $movie)
             <div class="bg-red-800 rounded-lg p-4 shadow-md">
@@ -47,11 +34,4 @@
     </div>
 </div>
 @include('footer')
-
-<!-- JavaScript to automatically submit the form when dropdown option changes -->
-<script>
-    document.getElementById('sort').addEventListener('change', function() {
-        document.getElementById('sortForm').submit();
-    });
-</script>
 @endsection

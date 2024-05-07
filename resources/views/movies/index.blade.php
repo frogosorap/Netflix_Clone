@@ -61,4 +61,7 @@
             @endforeach
         </div>
     </div>
-</div> --}}
+</div>
+@include('footer')
+@endsection
+
