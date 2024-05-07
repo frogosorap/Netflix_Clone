@@ -55,14 +55,7 @@ Route::delete('/movies/{movie}', function (Movie $movie) {
         ->with('success', 'Movie deleted successfully!');
 })->name('movies.destroy');
 
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Route::resource('/movie', UserCRUDController::class);
 
 Route::resource('/users', UserCRUDController::class);
 
@@ -70,13 +63,6 @@ Route::get('/', function () {
     return redirect()->route('movie.index');
 });
 
-// Route::get('/browse', function () {
-//     // Retrieve movies data from your database or any other source
-//     $movies = \App\Models\Movie::all(); // Assuming you want to fetch all movies
-
-//     // Pass movies data to the view
-//     return view('browse', ['movies' => $movies]);
-// })->name('browse');
 
 Route::get('/browse', function (Illuminate\Http\Request $request) {
     $movies = \App\Models\Movie::query();
@@ -92,9 +78,6 @@ Route::get('/browse', function (Illuminate\Http\Request $request) {
 })->name('browse');
 
 
-// Route::get('/search', function () {
-//     return view('search');
-// });
 
 Route::get('/search', function (Request $request) {
     $query = $request->query('query');
