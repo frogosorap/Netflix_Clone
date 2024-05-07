@@ -73,7 +73,7 @@
             @yield('content')
         </div>
         <div>
-            @yield('footer')
+            @include('footer')
         </div>
 
         
