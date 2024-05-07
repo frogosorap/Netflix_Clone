@@ -72,6 +72,9 @@
             @endif
             @yield('content')
         </div>
+        <div>
+            @yield('footer')
+        </div>
 
         
     </div>
