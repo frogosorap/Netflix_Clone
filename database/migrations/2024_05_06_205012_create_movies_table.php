@@ -4,35 +4,27 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMoviesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('movies', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('title');
-            $table->longText('description');
-            $table->date('release_date');
+            $table->text('description');
             $table->string('trailer_url');
-            $table->string('movie_url');
-            $table->string('slug');
-            $table->timestamp('updated_at');
-            $table->timestamp('created_at');
+            $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('movies');
     }
-}
+};
