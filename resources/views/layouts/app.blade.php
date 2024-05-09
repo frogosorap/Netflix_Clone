@@ -53,8 +53,12 @@
                            class="no-underline hover:underline"
                            onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                        {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                            {{ csrf_field() }}
+                        </form> --}}
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             {{ csrf_field() }}
+                            <button type="submit" class="no-underline hover:underline">{{ __('Logout') }}</button>
                         </form>
                     @endguest
                 </nav>

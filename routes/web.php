@@ -4,13 +4,14 @@ use App\Http\Controllers\MoviesController;
 use App\Http\Controllers\PagesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCRUDController;
-use App\Http\Controllers\Auth\LoginController;
+// use App\Http\Controllers\Auth\LoginController;
 use App\Models\Movie;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Requests\MovieRequest;
 // use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
 
 Route::get('/index', [PagesController::class, "index"]);
@@ -62,7 +63,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/users', UserCRUDController::class);
 
 Route::get('/', function () {
-    return redirect()->route('movie.index');
+    return redirect()->route('movies.index');
 });
 
 
@@ -90,14 +91,15 @@ Route::get('/search', function (Request $request) {
     return view('search', ['movies' => $movies]);
 })->name('search');
 
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Route::middleware(['web'])->group(function () {
-//     Route::get('/logout', [Auth\LoginController::class, 'logout'])->name('logout');
-// });
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['web'])->group(function () {
     Route::get('/logout', [Auth\LoginController::class, 'logout'])->name('logout');
