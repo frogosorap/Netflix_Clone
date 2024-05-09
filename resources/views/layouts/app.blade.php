@@ -34,15 +34,18 @@
                         <a href="users">USERS</a>
                     </div>
                 </div>
-                {{-- <div class="navbar_links">
+                <div class="navbar_links">
                     
-                </div> --}}
-                {{-- <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
+                </div>
+                <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                         @if (Route::has('register'))
                             <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
+                        {{-- @if (Route::has('register'))
+                            <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        @endif --}}
                     @else
                         <span>{{ Auth::user()->name }}</span>
 
@@ -54,7 +57,7 @@
                             {{ csrf_field() }}
                         </form>
                     @endguest
-                </nav> --}}
+                </nav>
             </div>
         </header>
 
