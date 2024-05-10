@@ -16,6 +16,11 @@
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">{{ $movie->title }}</h2>
                     <p class="text-sm text-gray-400 mb-4">{{ $movie->description }}</p>
+                    <p class="text-sm text-gray-400 mb-4"><strong>Genres:</strong>
+                        @foreach ($movie->genres as $genre)
+                            {{ $genre->name }}@if (!$loop->last), @endif
+                        @endforeach
+                    </p>
                     <a href="{{ route('movies.show', $movie->id) }}" class="btn bg-red-500 hover:bg-red-600 w-full">View Details</a>
                 </div>
             </div>
@@ -30,7 +35,4 @@
         @endif
     </div>
 </div>
-@include('footer')
 @endsection
-
-
