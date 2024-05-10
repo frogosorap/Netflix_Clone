@@ -16,6 +16,11 @@
                 <p>Created at: {{ $movie->created_at->diffForHumans() }}</p>
                 <p>Updated at: {{ $movie->updated_at->diffForHumans() }}</p>
             </div>
+             <p class="text-sm text-gray-400 mb-4"><strong>Genres:</strong>
+                        @foreach ($movie->genres as $genre)
+                            <span class="bg-yellow-400 px-2 py-1 rounded text-black">{{ $genre->name }}</span>@if (!$loop->last), @endif
+                        @endforeach
+               </p>
             
             <div class="flex justify-center space-x-4">
                 <form action="{{ route('movies.destroy', ['movie' => $movie->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this movie?')">
