@@ -12,7 +12,7 @@ use App\Http\Requests\MovieRequest;
 // use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-
+use App\Models\Genre;
 
 Route::get('/index', [PagesController::class, "index"]);
 
@@ -21,17 +21,21 @@ Route::get('/index', [PagesController::class, "index"]);
 Route::get('/movies', function () {
     return view(
         'movies.index',
-        ['movies' => Movie::latest()->paginate(5)]
+        ['movies' => Movie::latest()->paginate(10)]
     );
 })->name('movies.index');
 
 
-Route::view('movies/create', 'movies.create')
-    ->name('movies.create');
+Route::get('/movies/create', function () {
+    $genres = Genre::all();
+    return view('movies.create', ['genres' => $genres]);
+})->name('movies.create');
 
-Route::get('movies/{movie}/edit', function (Movie $movie) {
+Route::get('/movies/{movie}/edit', function (Movie $movie) {
+    $genres = Genre::all();
     return view('movies.edit', [
-        'movie' => $movie
+        'movie' => $movie,
+        'genres' => $genres
     ]);
 })->name('movies.edit');
 
@@ -42,12 +46,25 @@ Route::get('movies/{movie}', function (Movie $movie) {
 Route::post('/movies', function (MovieRequest $request) {
     $movie = Movie::create($request->validated());
 
+    if ($request->has('genres')) {
+        $movie->genres()->sync($request->input('genres'));
+    } else {
+        $movie->genres()->detach();
+    }
+
     return redirect()->route('movies.show', ['movie' => $movie->id])
         ->with('success', 'Movie created successfully!');
 })->name('movies.store');
 
 Route::put('/movies/{movie}', function (Movie $movie, MovieRequest $request) {
     $movie->update($request->validated());
+
+    if ($request->has('genres')) {
+        $movie->genres()->sync($request->input('genres'));
+    } else {
+        $movie->genres()->detach();
+    }
+
     return redirect()->route('movies.show', ['movie' => $movie->id])
         ->with('success', "Movie updated successfully!");
 })->name('movies.update');
@@ -85,8 +102,8 @@ Route::get('/browse', function (Illuminate\Http\Request $request) {
 Route::get('/search', function (Request $request) {
     $query = $request->query('query');
     $movies = \App\Models\Movie::where('title', 'like', '%' . $query . '%')
-                              ->orWhere('description', 'like', '%' . $query . '%')
-                              ->get();
+        ->orWhere('description', 'like', '%' . $query . '%')
+        ->get();
 
     return view('search', ['movies' => $movies]);
 })->name('search');
@@ -104,4 +121,3 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['web'])->group(function () {
     Route::get('/logout', [Auth\LoginController::class, 'logout'])->name('logout');
 });
-

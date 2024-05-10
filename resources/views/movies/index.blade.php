@@ -9,19 +9,15 @@
         <h1 class="text-4xl font-bold text-center mb-8">All Movies</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             @forelse ($movies as $movie)
-            <div class="bg-gray-800 rounded-lg shadow-md">
-                <div class="aspect-w-16 aspect-h-9">
-                    <iframe class="w-full h-full rounded-t-lg" src="{{ $movie->trailer_url }}" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="p-6">
-                    <h2 class="text-xl font-semibold mb-2">{{ $movie->title }}</h2>
-                    <p class="text-sm text-gray-400 mb-4">{{ $movie->description }}</p>
-                    <p class="text-sm text-gray-400 mb-4"><strong>Genres:</strong>
-                        @foreach ($movie->genres as $genre)
-                            {{ $genre->name }}@if (!$loop->last), @endif
-                        @endforeach
-                    </p>
-                    <a href="{{ route('movies.show', $movie->id) }}" class="btn bg-red-500 hover:bg-red-600 w-full">View Details</a>
+            <div class="bg-gray-800 rounded-lg shadow-md relative overflow-hidden">
+                <img src="{{$movie['img_url']}}" alt="{{$movie['title']}}" class="w-full h-80 object-cover transition duration-300 ease-in-out hover:scale-110 rounded-t-lg">
+                <div class="p-6 absolute inset-0 bg-black bg-opacity-75 opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                    {{-- <iframe width="100%" height="100%" src="{{$movie['trailer_url']}}" frameborder="0" allow="autoplay; fullscreen" class="rounded"></iframe> --}}
+                    <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                        <h2 class="text-xl font-semibold mb-2">{{ $movie['title'] }}</h2>
+                        <p class="text-sm text-gray-400 mb-4">{{ $movie['description'] }}</p>
+                        <a href="{{ route('movies.show', $movie['id']) }}" class="btn bg-red-500 hover:bg-red-600 w-full">Watch Movie</a>
+                    </div>
                 </div>
             </div>
             @empty
