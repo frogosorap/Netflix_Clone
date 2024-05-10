@@ -3,7 +3,11 @@
 @section('content')
 <div class="bg-black text-white">
     <nav class="flex justify-center mt-8">
-        <a href="{{ route('movies.create') }}" class="btn bg-red-500 hover:bg-red-600">Add Movie</a>
+        @auth
+            @if(Auth::user()->access_level === 'admin')
+                <a href="{{ route('movies.create') }}" class="btn bg-red-500 hover:bg-red-600">Add Movie</a>
+            @endif
+        @endauth
     </nav>
     <div class="container mx-auto py-10">
         <h1 class="text-4xl font-bold text-center mb-8">All Movies</h1>
@@ -14,10 +18,17 @@
                 <div class="p-6 absolute inset-0 bg-black bg-opacity-75 opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
                     {{-- <iframe width="100%" height="100%" src="{{$movie['trailer_url']}}" frameborder="0" allow="autoplay; fullscreen" class="rounded"></iframe> --}}
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                        <p class="text-sm text-gray-400 mt-4"><strong>Genres:</strong>
+                            @foreach ($movie->genres as $genre)
+                                <span class="bg-yellow-400 px-2 py-1 rounded text-black">{{ $genre->name }}</span>@if (!$loop->last), @endif
+                            @endforeach
+                        </p>
                         <h2 class="text-xl font-semibold mb-2">{{ $movie['title'] }}</h2>
                         <p class="text-sm text-gray-400 mb-4">{{ $movie['description'] }}</p>
+
                         <a href="{{ route('movies.show', $movie['id']) }}" class="btn bg-red-500 hover:bg-red-600 w-full">Watch Movie</a>
                     </div>
+                    
                 </div>
             </div>
             @empty
