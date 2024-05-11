@@ -15,4 +15,9 @@ class Movie extends Model
     {
         return $this->belongsToMany(Genre::class, 'movie_genres');
     }
+
+    public function watchHistory()
+    {
+        return $this->hasMany(WatchHistory::class);
+    }
 }

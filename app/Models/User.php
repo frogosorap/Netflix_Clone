@@ -44,4 +44,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function isAdmin()
+    {
+        return strpos($this->email, 'admin') !== false;
+    }
+
+    public function watchHistory()
+    {
+        return $this->hasMany(WatchHistory::class);
+    }
 }

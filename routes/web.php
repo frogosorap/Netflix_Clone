@@ -23,6 +23,7 @@ Route::get('/movies/{movie}', function (Movie $movie) {
     return view('movies.show', ['movie' => $movie]);
 })->name('movies.show');
 
+
 // Group routes that require admin access
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/movies/create', function () {
@@ -36,7 +37,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
             'movie' => $movie,
             'genres' => $genres
         ]);
-    })->name('movies.edit');
+    })->name('movies.edit')->middleware('auth', 'admin');
 
 
 
