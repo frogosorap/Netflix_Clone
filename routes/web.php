@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\WatchHistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCRUDController;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Requests\MovieRequest;
 use App\Models\Genre;
+use App\Models\WatchHistory;
 use Illuminate\Support\Facades\Auth;
 
 // Define routes for browsing and searching movies
@@ -109,3 +111,7 @@ Route::get('/search', function (Request $request) {
 Route::get('/profile', function () {
     return view('profile', ['user' => Auth::user()]);
 })->name('profile.show')->middleware('auth');
+
+
+Route::get('/watch-history', [WatchHistoryController::class, 'index'])->name('watchHistory.index')->middleware('auth');
+Route::post('/watch-history/{movie}', [WatchHistory::class, 'store'])->name('watch-history.store');

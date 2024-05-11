@@ -52,6 +52,7 @@ class User extends Authenticatable
 
     public function watchHistory()
     {
-        return $this->hasMany(WatchHistory::class);
+        return $this->belongsToMany(Movie::class, 'watch_history', 'user_id', 'movie_id')->withTimestamps();
     }
+
 }
