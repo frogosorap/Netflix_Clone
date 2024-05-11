@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div id="navbar_links">
-                        <a href="movie">HOME</a>
+                        <a href="movies">HOME</a>
                         <a href="browse">BROWSE</a>
                         <a href="search">SEARCH</a>
                         <a href="users">USERS</a>
@@ -47,7 +47,7 @@
                             <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif --}}
                     @else
-                        <span>{{ Auth::user()->name }}</span>
+                        <span><a href="{{ route('profile.show') }}">{{ Auth::user()->name }}</a></span>
 
                         <a href="{{ route('logout') }}"
                            class="no-underline hover:underline"

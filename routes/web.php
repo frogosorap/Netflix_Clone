@@ -103,3 +103,8 @@ Route::get('/search', function (Request $request) {
 
     return view('search', ['movies' => $movies]);
 })->name('search');
+
+
+Route::get('/profile', function () {
+    return view('profile', ['user' => Auth::user()]);
+})->name('profile.show')->middleware('auth');
