@@ -26,7 +26,11 @@
                         <h2 class="text-xl font-semibold mb-2">{{ $movie['title'] }}</h2>
                         <p class="text-sm text-gray-400 mb-4">{{ $movie['description'] }}</p>
 
-                        <a href="{{ route('movies.show', $movie['id']) }}" class="btn bg-red-500 hover:bg-red-600 w-full">Watch Movie</a>
+                        {{-- <a href="{{ route('movies.show', $movie['id']) }}" class="btn bg-red-500 hover:bg-red-600 w-full">Watch Movie</a> --}}
+                       <form action="{{ route('watchHistory.store', $movie->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn bg-red-500 hover:bg-red-600 w-full">Watch Movie</button>
+                        </form>
                     </div>
                     
                 </div>

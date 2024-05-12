@@ -5,7 +5,7 @@
     <div class="container mx-auto py-10">
         <h1 class="text-4xl font-bold text-center mb-8">Watch History</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            @forelse ($watchHistory as $movie)
+            @forelse ($movies as $movie)
             <div class="bg-gray-800 rounded-lg shadow-md relative overflow-hidden">
                 <img src="{{$movie->img_url}}" alt="{{$movie->title}}" class="w-full h-80 object-cover transition duration-300 ease-in-out hover:scale-110 rounded-t-lg">
                 <div class="p-6 absolute inset-0 bg-black bg-opacity-75 opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">

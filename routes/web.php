@@ -114,4 +114,4 @@ Route::get('/profile', function () {
 
 
 Route::get('/watch-history', [WatchHistoryController::class, 'index'])->name('watchHistory.index')->middleware('auth');
-Route::post('/watch-history/{movie}', [WatchHistory::class, 'store'])->name('watch-history.store');
+Route::post('/watchHistory/{movie}', [WatchHistoryController::class, 'store'])->name('watchHistory.store');

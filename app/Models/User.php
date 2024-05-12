@@ -54,5 +54,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Movie::class, 'watch_history', 'user_id', 'movie_id')->withTimestamps();
     }
-
 }
