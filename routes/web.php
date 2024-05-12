@@ -86,14 +86,16 @@ Route::get('/', function () {
 
 // Routes for browsing and searching movies
 Route::get('/browse', function (Illuminate\Http\Request $request) {
-    $movies = \App\Models\Movie::query();
+    $moviesQuery = \App\Models\Movie::query();
 
     if ($request->has('sort')) {
         $sortDirection = $request->input('sort');
-        $movies->orderBy('title', $sortDirection);
+        if ($sortDirection === 'asc' || $sortDirection === 'desc') {
+            $moviesQuery->orderBy('title', $sortDirection);
+        }
     }
 
-    $movies = $movies->get();
+    $movies = $moviesQuery->get(); // Retrieve all movies
 
     return view('browse', ['movies' => $movies]);
 })->name('browse');
