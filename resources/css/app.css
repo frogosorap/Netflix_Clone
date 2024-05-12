@@ -57,6 +57,23 @@ font-family: "Bebas Neue", sans-serif;
 
 /* =============================== BROWSE =============================== */
 
+.custom-dropdown {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.custom-dropdown option {
+  background-color: black;
+  color: white;
+}
+
+.custom-dropdown option:hover {
+  background-color: red;
+  color: white;
+}
 
 /* =============================== SEARCH =============================== */
 
