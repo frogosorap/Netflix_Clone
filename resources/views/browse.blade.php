@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>Browse Page</h1>
-</div>
 
 <div class="bg-black text-white">
     <div class="w-4/5 mx-auto text-center py-10">

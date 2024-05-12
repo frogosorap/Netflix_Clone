@@ -19,7 +19,7 @@
                     <p class="text-gray-700"><strong>Email:</strong> {{ $user->email }}</p>
                 </div>  
 
-                <a href="{{ route('home') }}" class="text-blue-500 hover:underline">Back to Home</a>
+                <a href="{{ route('movies.index') }}" class="text-blue-500 hover:underline">Back to Home</a>
             </div>
         </div>
     </div>

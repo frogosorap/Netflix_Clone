@@ -14,7 +14,7 @@ font-family: "Bebas Neue", sans-serif;
 /* =============================== NAVBAR =============================== */
 
 .navbar{
-    background-color: transparent;
+    background-color: black;
     display: flex;
     font-family: "Bebas Neue", sans-serif;
     position: sticky;
@@ -49,7 +49,7 @@ font-family: "Bebas Neue", sans-serif;
 #navbar_links a:hover {
     text-decoration: underline;
     transform: scale(0.95);
-    color:#ccc;
+    color:#e50914;
 }
 
 /* =============================== MOVIE =============================== */
@@ -211,11 +211,22 @@ body {
   }
   
   .sub-links a:hover {
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    color:#e50914;
+  }
+
+  .sub-links li:hover{
+    transform: scale(1.03);
   }
   
   .logos a{
-    padding: 20px;
+    /* padding: 20px; */
+    margin:20px;
+  }
+
+  .logos a:hover{
+    /* padding: 20px; */
+    color:#e50914;
   }
   
   .logo {
