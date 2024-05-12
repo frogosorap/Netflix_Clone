@@ -1,37 +1,166 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-black text-white">
-    <div class="w-4/5 mx-auto text-center py-10">
-        <div>
-            <h1 class="text-4xl">Search</h1>
-        </div>
+    <div class="bg-black text-white flex flex-col lg:flex-row">
+        <!-- Left side: Search bar and virtual keyboard -->
+        <div class="flex-1/4 p-4 lg:p-10">
+            <div class="text-center">
+                <h1 class="text-2xl lg:text-4xl">Search</h1>
+            </div>
 
-        <form action="{{ route('search') }}" method="GET" class="mt-8">
-            <input type="text" name="query" placeholder="Search for movies..." class="bg-gray-800 text-white py-2 px-4 rounded-md w-full">
-            <button type="submit" class="bg-red-700 py-3 px-6 mt-4 inline-block rounded-md">Search</button>
-        </form>
+            <form action="{{ route('search') }}" method="GET" class="mt-4 lg:mt-8 flex">
+                <input type="text" name="query" id="searchInput" placeholder="Search movies..." class="bg-gray-800 text-white py-2 px-2 lg:px-3 rounded-l-md w-full" style="font-size: 14px;">
+                <button type="submit" class="bg-red-700 py-2 px-4 lg:px-6 ml-2 rounded-r-md" style="font-size: 14px;">Search</button>
+            </form>
 
-        @if(Auth::check())
-        <div>
-            <a href="/movie/create" class="bg-red-700 py-3 px-6 mt-8 inline-block rounded-md">Add a Movie</a>
-        </div>
-        @endif
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10">
-            @foreach ($movies as $movie)
-            <div class="bg-red-800 rounded-lg p-4 shadow-md">
-                <div class="aspect-w-16 aspect-h-9">
-                    <iframe class="w-full h-full" src="{{ $movie->trailer_url }}" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="mt-4">
-                    <h2 class="text-2xl font-semibold">{{ $movie->title }}</h2>
-                    <p class="text-sm">{{ $movie->description }}</p>
+            <!-- Virtual Keyboard -->
+            <div class="mt-4 lg:mt-8">
+                <div class="keyboard">
+                    <div class="keyboard-row">
+                        <div class="keyboard-key" onclick="addCharacter('1')">1</div>
+                        <div class="keyboard-key" onclick="addCharacter('2')">2</div>
+                        <div class="keyboard-key" onclick="addCharacter('3')">3</div>
+                        <div class="keyboard-key" onclick="addCharacter('4')">4</div>
+                        <div class="keyboard-key" onclick="addCharacter('5')">5</div>
+                        <div class="keyboard-key" onclick="addCharacter('6')">6</div>
+                        <div class="keyboard-key" onclick="addCharacter('7')">7</div>
+                        <div class="keyboard-key" onclick="addCharacter('8')">8</div>
+                        <div class="keyboard-key" onclick="addCharacter('9')">9</div>
+                        <div class="keyboard-key" onclick="addCharacter('0')">0</div>
+                        <div class="keyboard-key" onclick="deleteCharacter()">Del</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="keyboard-key" onclick="addCharacter('Q')">Q</div>
+                        <div class="keyboard-key" onclick="addCharacter('W')">W</div>
+                        <div class="keyboard-key" onclick="addCharacter('E')">E</div>
+                        <div class="keyboard-key" onclick="addCharacter('R')">R</div>
+                        <div class="keyboard-key" onclick="addCharacter('T')">T</div>
+                        <div class="keyboard-key" onclick="addCharacter('Y')">Y</div>
+                        <div class="keyboard-key" onclick="addCharacter('U')">U</div>
+                        <div class="keyboard-key" onclick="addCharacter('I')">I</div>
+                        <div class="keyboard-key" onclick="addCharacter('O')">O</div>
+                        <div class="keyboard-key" onclick="addCharacter('P')">P</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="keyboard-key" onclick="addCharacter('A')">A</div>
+                        <div class="keyboard-key" onclick="addCharacter('S')">S</div>
+                        <div class="keyboard-key" onclick="addCharacter('D')">D</div>
+                        <div class="keyboard-key" onclick="addCharacter('F')">F</div>
+                        <div class="keyboard-key" onclick="addCharacter('G')">G</div>
+                        <div class="keyboard-key" onclick="addCharacter('H')">H</div>
+                        <div class="keyboard-key" onclick="addCharacter('J')">J</div>
+                        <div class="keyboard-key" onclick="addCharacter('K')">K</div>
+                        <div class="keyboard-key" onclick="addCharacter('L')">L</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="keyboard-key" onclick="addCharacter('Z')">Z</div>
+                        <div class="keyboard-key" onclick="addCharacter('X')">X</div>
+                        <div class="keyboard-key" onclick="addCharacter('C')">C</div>
+                        <div class="keyboard-key" onclick="addCharacter('V')">V</div>
+                        <div class="keyboard-key" onclick="addCharacter('B')">B</div>
+                        <div class="keyboard-key" onclick="addCharacter('N')">N</div>
+                        <div class="keyboard-key" onclick="addCharacter('M')">M</div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="keyboard-key" style="width: 100px;" onclick="addCharacter(' ')">Space</div>
+                    </div>
                 </div>
             </div>
-            @endforeach
+        </div>
+
+        <!-- Right side: Movies -->
+        <div class="flex-3 p-4 lg:p-10 overflow-x-auto" style="max-height: 80vh;" id="flex-3/4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+                @forelse ($movies as $movie)
+                    <div class="bg-gray-800 rounded-lg shadow-md relative overflow-hidden" style="height: 180px;">
+                        <img src="{{$movie['img_url']}}" alt="{{$movie['title']}}" style="width: 100%; height: 100%; object-fit: cover;" class="rounded-t-lg">
+                        <div class="p-4 absolute inset-0 bg-black bg-opacity-75 opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                            <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                                <h2 class="text-lg font-semibold text-white mb-1">{{ $movie['title'] }}</h2>
+                                <p class="text-xs text-gray-400"><strong>Genre:</strong>
+                                    <span class="py-2">
+                                        @foreach ($movie->genres as $genre)
+                                            <span class="bg-red-600 px-1 py-0.5 rounded text-white">{{ $genre->name }}</span>
+                                        @endforeach
+                                    </span>
+                                </p>
+
+                                <form action="{{ route('watchHistory.store', $movie->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn bg-red-600 hover:bg-red-700 mt-2 w-full">Watch Movie</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center">No movies found for your search.</div>
+                @endforelse
+            </div>
         </div>
     </div>
-</div>
-@include('footer')
+
+    <style>
+    .keyboard-container {
+    display: flex;
+    justify-content: center;
+}
+
+.keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+}
+
+.keyboard-key {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #2d2d2d;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    margin: 3px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.keyboard-key:hover {
+    background-color: #4a4a4a;
+}
+
+.keyboard-key.wide {
+    width: 100px;
+}
+
+.flex-3::-webkit-scrollbar {
+    width: 10px;
+    background-color: #2d2d2d;
+}
+
+.flex-3::-webkit-scrollbar-thumb {
+    background-color: #4a4a4a;
+    border-radius: 5px;
+}
+
+.flex-3::-webkit-scrollbar-thumb:hover {
+    background-color: #666666;
+}
+</style>
+
+<script>
+function addCharacter(char) {
+    document.getElementById('searchInput').value += char;
+}
+
+function deleteCharacter() {
+    var input = document.getElementById('searchInput');
+    input.value = input.value.slice(0, -1);
+}
+</script>
 @endsection
