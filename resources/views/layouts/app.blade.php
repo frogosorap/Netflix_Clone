@@ -30,7 +30,12 @@
                         <a href="movies">HOME</a>
                         <a href="browse">BROWSE</a>
                         <a href="search">SEARCH</a>
-                        <a href="users">USERS</a>
+                        @auth
+                            @if(Auth::user()->access_level === 'admin')
+                                   <a href="users">USERS</a>
+                            @endif
+                        @endauth
+                     
                     </div>
                 </div>
                 <div id="navbar_links">
