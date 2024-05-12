@@ -99,59 +99,6 @@
         </div>
     </div>
 
-    <style>
-    .keyboard-container {
-    display: flex;
-    justify-content: center;
-}
-
-.keyboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.keyboard-row {
-    display: flex;
-    justify-content: center;
-}
-
-.keyboard-key {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    background-color: #2d2d2d;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    font-size: 14px;
-    margin: 3px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.keyboard-key:hover {
-    background-color: #4a4a4a;
-}
-
-.keyboard-key.wide {
-    width: 100px;
-}
-
-.flex-3::-webkit-scrollbar {
-    width: 10px;
-    background-color: #2d2d2d;
-}
-
-.flex-3::-webkit-scrollbar-thumb {
-    background-color: #4a4a4a;
-    border-radius: 5px;
-}
-
-.flex-3::-webkit-scrollbar-thumb:hover {
-    background-color: #666666;
-}
-</style>
 
 <script>
 function addCharacter(char) {

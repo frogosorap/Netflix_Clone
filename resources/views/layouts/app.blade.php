@@ -12,8 +12,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     
-  @vite('resources/css/app.css')
-  <script src="//unpkg.com/alpinejs" defer></script>
+    @vite('resources/css/app.css')
+    <script src="//unpkg.com/alpinejs" defer></script>
 
 </head>
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
@@ -23,7 +23,6 @@
                 <div class="navbar_items">
                     <div id="navbar_logo">
                         <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
-                            {{-- {{ config('app.name', 'Laravel') }} --}}
                             <img src="https://www.edigitalagency.com.au/wp-content/uploads/netflix-logo-png-large.png" alt="logo" width="100px" >
                         </a>
                     </div>
@@ -34,34 +33,18 @@
                         <a href="users">USERS</a>
                     </div>
                 </div>
-                <div class="navbar_links">
-                    
-                </div>
+                <div id="navbar_links">
                 <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                         @if (Route::has('register'))
                             <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
-                        {{-- @if (Route::has('register'))
-                            <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        @endif --}}
                     @else
-                        <span><a href="{{ route('profile.show') }}">{{ Auth::user()->name }}</a></span>
-
-                        <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline"
-                           onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                        {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            {{ csrf_field() }}
-                        </form> --}}
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            {{ csrf_field() }}
-                            <button type="submit" class="no-underline hover:underline">{{ __('Logout') }}</button>
-                        </form>
+                        <a href="{{ route('profile.show') }}" class="no-underline hover:underline">{{ Auth::user()->name }}</a>
                     @endguest
                 </nav>
+                </div>
             </div>
         </header>
 
@@ -82,8 +65,6 @@
         <div>
             @include('footer')
         </div>
-
-        
     </div>
 </body>
 </html>
