@@ -30,7 +30,6 @@
                         <a href="movies">HOME</a>
                         <a href="browse">BROWSE</a>
                         <a href="search">SEARCH</a>
-                        <a href="users">USERS</a>
                         @guest <!-- Check if user is a guest (not logged in) -->
                             <a href="subscribe">SUBSCRIBE</a>
                         @endguest
