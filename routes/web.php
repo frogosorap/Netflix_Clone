@@ -121,7 +121,17 @@ Route::get('/search', function (Request $request) {
 
 
 Route::get('/profile', function () {
-    return view('profile', ['user' => Auth::user()]);
+    $user = Auth::user();
+    $watchHistory = WatchHistory::where('user_id', $user->id)
+        ->orderByDesc('created_at')
+        ->get();
+
+    // dd($watchHistory);
+
+    return view('profile', [
+        'user' => $user,
+        'watchHistory' => $watchHistory,
+    ]);
 })->name('profile.show')->middleware('auth');
 
 
