@@ -34,6 +34,12 @@
                         @guest <!-- Check if user is a guest (not logged in) -->
                             <a href="subscribe">SUBSCRIBE</a>
                         @endguest
+                        @auth
+                            @if(Auth::user()->access_level === 'admin')
+                                   <a href="users">USERS</a>
+                            @endif
+                        @endauth
+                     
                     </div>
                 </div>
                 <div id="navbar_links">
