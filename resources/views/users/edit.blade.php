@@ -1,63 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit User Form - Laravel 8 CRUD Tutorial</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    @vite('resources/css/app.css')
-</head>
-<body>
-    <div class="crud-container">
-        <div class="row">
-            <div class="col-lg-12 crud-margin-tb">
-                <div class="pull-left">
-                    <h2>Edit User</h2>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-                </div>
-            </div>
-        </div>
+@extends('layouts.app')
+
+@section('content')
+<div class="bg-black text-white py-12">
+    <div class="w-full max-w-md mx-auto">
         @if(session('status'))
             <div class="crud-alert crud-alert-success crud-mb-1 crud-mt-1">
                 {{ session('status') }}
             </div>
         @endif
-        <form action="{{ route('users.update',$user->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data" class="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             @method('PUT')
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>User Name:</strong>
-                        <input type="text" name="name" value="{{ $user->name }}" class="form-control" placeholder="User name">
-                        @error('name')
-                            <div class="crud-alert crud-alert-danger crud-mt-1 crud-mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>User Email:</strong>
-                        <input type="email" name="email" class="form-control" placeholder="User Email" value="{{ $user->email }}">
-                        @error('email')
-                            <div class="crud-alert crud-alert-danger crud-mt-1 crud-mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>User Password:</strong>
-                        <input type="text" name="password" value="{{ $user->password }}" class="form-control" placeholder="User Password">
-                        @error('password')
-                            <div class="crud-alert crud-alert-danger crud-mt-1 crud-mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary ml-3">Submit</button>
+            <div class="mb-4">
+                <label class="block text-sm font-bold text-white mb-2" for="name">User Name</label>
+                <input type="text" name="name" value="{{ $user->name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="User Name">
+                @error('name')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-bold text-white mb-2" for="email">User Email</label>
+                <input type="email" name="email" value="{{ $user->email }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="User Email">
+                @error('email')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-bold text-white mb-2" for="password">User Password</label>
+                <input type="text" name="password" value="{{ $user->password }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="User Password">
+                @error('password')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="flex justify-between items-center">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+                <a href="{{ route('users.index') }}" class="btn bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Back</a>
             </div>
         </form>
     </div>
-</body>
-</html>
+</div>
+@endsection
