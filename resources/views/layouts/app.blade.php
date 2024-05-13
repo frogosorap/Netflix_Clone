@@ -22,7 +22,7 @@
             <div class="container mx-auto flex justify-between items-center px-6">
                 <div class="navbar_items">
                     <div id="navbar_logo">
-                        <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
+                        <a href="{{ url('/movies') }}" class="text-lg font-semibold text-gray-100 no-underline">
                             <img src="https://www.edigitalagency.com.au/wp-content/uploads/netflix-logo-png-large.png" alt="logo" width="100px" >
                         </a>
                     </div>

@@ -72,6 +72,42 @@ Route::delete('/movies/{movie}', function (Movie $movie) {
 })->name('movies.destroy');
 
 
+Route::get('/browse', function (Illuminate\Http\Request $request) {
+    $moviesQuery = \App\Models\Movie::query();
+
+    // Check if a genre filter is applied
+    if ($request->has('genre')) {
+        $genreId = $request->input('genre');
+        // Retrieve movies related to the selected genre
+        $moviesQuery->whereHas('genres', function ($query) use ($genreId) {
+            $query->where('id', $genreId);
+        });
+    }
+
+    // Check if a sort filter is applied
+    if ($request->has('sort')) {
+        $sortDirection = $request->input('sort');
+        if ($sortDirection === 'asc' || $sortDirection === 'desc') {
+            $moviesQuery->orderBy('title', $sortDirection);
+        }
+    }
+
+    // Check if a description sort filter is applied
+    if ($request->has('descriptionSort')) {
+        $descriptionSortDirection = $request->input('descriptionSort');
+        if ($descriptionSortDirection === 'asc' || $descriptionSortDirection === 'desc') {
+            $moviesQuery->orderBy('description', $descriptionSortDirection);
+        }
+    }
+
+    $movies = $moviesQuery->get(); // Retrieve all filtered movies
+    $genres = Genre::all(); // Retrieve all genres
+
+    return view('browse', ['movies' => $movies, 'genres' => $genres]);
+})->name('browse');
+
+
+
 Route::get('/search', function (Request $request) {
     $query = $request->query('query');
     $movies = \App\Models\Movie::where('title', 'like', '%' . $query . '%')
