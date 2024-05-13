@@ -34,6 +34,14 @@
             </div>
 
             <div class="mb-4">
+                <label class="block text-sm font-bold text-white mb-2" for="trailer_url">Image URL</label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" id="img_url" type="text" placeholder="Image URL" name="img_url" value="{{ isset($movie) ? $movie->img_url : old('img_url') }}">
+                @error('img_url')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-4">
                 <label class="block text-sm font-bold text-white mb-2">Genres</label>
                 @foreach($genres as $genre)
                     <div class="flex items-center">

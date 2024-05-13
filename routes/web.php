@@ -21,103 +21,55 @@ Route::get('/movies', function () {
     );
 })->name('movies.index');
 
-Route::get('/movies/{movie}', function (Movie $movie) {
+
+Route::get('/movies/create', function () {
+    $genres = Genre::all();
+    return view('movies.create', ['genres' => $genres]);
+})->name('movies.create');
+
+Route::get('/movies/{movie}/edit', function (Movie $movie) {
+    $genres = Genre::all();
+    return view('movies.edit', [
+        'movie' => $movie,
+        'genres' => $genres
+    ]);
+})->name('movies.edit');
+
+Route::get('movies/{movie}', function (Movie $movie) {
     return view('movies.show', ['movie' => $movie]);
 })->name('movies.show');
 
+Route::post('/movies', function (MovieRequest $request) {
+    $movie = Movie::create($request->validated());
 
-// Group routes that require admin access
-Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('/movies/create', function () {
-        $genres = Genre::all();
-        return view('movies.create', ['genres' => $genres]);
-    })->name('movies.create');
-
-    Route::get('/movies/{movie}/edit', function (Movie $movie) {
-        $genres = Genre::all();
-        return view('movies.edit', [
-            'movie' => $movie,
-            'genres' => $genres
-        ]);
-    })->name('movies.edit')->middleware('auth', 'admin');
-
-
-
-    Route::post('/movies', function (MovieRequest $request) {
-        $movie = Movie::create($request->validated());
-
-        if ($request->has('genres')) {
-            $movie->genres()->sync($request->input('genres'));
-        } else {
-            $movie->genres()->detach();
-        }
-
-        return redirect()->route('movies.show', ['movie' => $movie->id])
-            ->with('success', 'Movie created successfully!');
-    })->name('movies.store');
-
-    Route::put('/movies/{movie}', function (Movie $movie, MovieRequest $request) {
-        $movie->update($request->validated());
-
-        if ($request->has('genres')) {
-            $movie->genres()->sync($request->input('genres'));
-        } else {
-            $movie->genres()->detach();
-        }
-
-        return redirect()->route('movies.show', ['movie' => $movie->id])
-            ->with('success', "Movie updated successfully!");
-    })->name('movies.update');
-
-    Route::delete('/movies/{movie}', function (Movie $movie) {
-        $movie->delete();
-        return redirect()->route('movies.index')
-            ->with('success', 'Movie deleted successfully!');
-    })->name('movies.destroy');
-});
-
-// Routes for home, user CRUD, authentication, and redirection
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('/users', UserCRUDController::class);
-Auth::routes();
-Route::get('/', function () {
-    return redirect()->route('movies.index');
-});
-
-// Routes for browsing and searching movies
-Route::get('/browse', function (Illuminate\Http\Request $request) {
-    $moviesQuery = \App\Models\Movie::query();
-
-    // Check if a genre filter is applied
-    if ($request->has('genre')) {
-        $genreId = $request->input('genre');
-        // Retrieve movies related to the selected genre
-        $moviesQuery->whereHas('genres', function ($query) use ($genreId) {
-            $query->where('id', $genreId);
-        });
+    if ($request->has('genres')) {
+        $movie->genres()->sync($request->input('genres'));
+    } else {
+        $movie->genres()->detach();
     }
 
-    // Check if a sort filter is applied
-    if ($request->has('sort')) {
-        $sortDirection = $request->input('sort');
-        if ($sortDirection === 'asc' || $sortDirection === 'desc') {
-            $moviesQuery->orderBy('title', $sortDirection);
-        }
+    return redirect()->route('movies.show', ['movie' => $movie->id])
+        ->with('success', 'Movie created successfully!');
+})->name('movies.store');
+
+Route::put('/movies/{movie}', function (Movie $movie, MovieRequest $request) {
+    $movie->update($request->validated());
+
+    if ($request->has('genres')) {
+        $movie->genres()->sync($request->input('genres'));
+    } else {
+        $movie->genres()->detach();
     }
 
-    // Check if a description sort filter is applied
-    if ($request->has('descriptionSort')) {
-        $descriptionSortDirection = $request->input('descriptionSort');
-        if ($descriptionSortDirection === 'asc' || $descriptionSortDirection === 'desc') {
-            $moviesQuery->orderBy('description', $descriptionSortDirection);
-        }
-    }
+    return redirect()->route('movies.show', ['movie' => $movie->id])
+        ->with('success', "Movie updated successfully!");
+})->name('movies.update');
 
-    $movies = $moviesQuery->get(); // Retrieve all filtered movies
-    $genres = Genre::all(); // Retrieve all genres
-
-    return view('browse', ['movies' => $movies, 'genres' => $genres]);
-})->name('browse');
+Route::delete('/movies/{movie}', function (Movie $movie) {
+    $movie->delete();
+    return redirect()->route('movies.index')
+        ->with('success', 'Movie deleted successfully!');
+})->name('movies.destroy');
 
 
 Route::get('/search', function (Request $request) {

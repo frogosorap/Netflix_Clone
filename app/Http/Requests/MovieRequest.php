@@ -24,7 +24,8 @@ class MovieRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'trailer_url' => 'required'
+            'trailer_url' => 'required',
+            'img_url' => 'required'
         ];
     }
 }
