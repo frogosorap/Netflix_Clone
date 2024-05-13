@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 // Define routes for browsing and searching movies
 Route::get('/index', [PagesController::class, "index"]);
 
+Route::resource('/users', UserCRUDController::class);
+
 Route::get('/movies', function () {
     return view(
         'movies.index',
