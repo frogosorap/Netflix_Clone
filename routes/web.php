@@ -137,3 +137,7 @@ Route::get('/profile', function () {
 
 Route::get('/watch-history', [WatchHistoryController::class, 'index'])->name('watchHistory.index')->middleware('auth');
 Route::post('/watchHistory/{movie}', [WatchHistoryController::class, 'store'])->name('watchHistory.store');
+
+Route::get('/subscribe', function () {
+    return view('subscribe');
+})->name('subscribe');
