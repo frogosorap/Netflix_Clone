@@ -3,11 +3,11 @@
 @section('content')
 <div class="bg-black text-white">
     <div class="container py-10">
-        {{-- @auth --}}
-            {{-- @if(Auth::user()->access_level === 'admin') --}}
+        @auth
+            @if(Auth::user()->access_level === 'admin')
                 <a href="{{ route('movies.create') }}" class="btn bg-red-600 hover:bg-red-700">Add Movie</a>
-            {{-- @endif --}}
-        {{-- @endauth --}}
+            @endif
+        @endauth
         <h1 class="text-4xl font-bold text-center mb-8">All Movies</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             @forelse ($movies as $movie)
