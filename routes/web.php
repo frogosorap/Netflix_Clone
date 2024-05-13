@@ -93,3 +93,5 @@ Route::post('/watchHistory/{movie}', [WatchHistoryController::class, 'store'])->
 Route::get('/subscribe', function () {
     return view('subscribe');
 })->name('subscribe');
+
+Auth::routes();
