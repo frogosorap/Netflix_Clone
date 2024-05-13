@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="bg-black text-white">
+    <div class="relative">
+        <img src="https://cdn.vox-cdn.com/thumbor/PqBGdG8nMyHCp8k0LtrZaoNqdJ0=/158x0:1746x794/fit-in/1200x600/cdn.vox-cdn.com/uploads/chorus_asset/file/13198493/Screen_Shot_2018_10_02_at_10.15.16_AM.png" alt="Movie Website Header" class="w-full h-80 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <h1 class="text-4xl font-bold text-white">Browse Movies</h1>
+        </div>
+    </div>
     <div class="container py-10">
         <h1 class="text-4xl font-bold text-center mb-8">Browse</h1>
         
