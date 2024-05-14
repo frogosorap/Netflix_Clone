@@ -52,7 +52,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         @forelse ($watchHistory as $history)
                         <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
-                            <img src="{{ $history->movie->img_url }}" alt="{{ $history->movie->title }}" class="w-full h-64 object-cover">
+                            <img src="{{ $history->movie->img_url }}" alt="{{ $history->movie->title }}" class="w-full h-50 object-cover">
                             <div class="p-4">
                                 <h3 class="text-lg font-semibold mb-2 text-white">{{ $history->movie->title }}</h3>
                                 <p class="text-sm text-gray-400">{{ $history->movie->description }}</p>
@@ -65,6 +65,8 @@
                         <div class="col-span-full text-center text-gray-400">No movies watched yet.</div>
                         @endforelse
                     </div>
+                </div>
+
                 </div>
 
                 <div class="mt-6">

@@ -9,14 +9,14 @@
             @csrf
             <div class="mb-4">
                 <label class="block text-sm font-bold text-white mb-2" for="email">Email Address</label>
-                <input type="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-3 text-[#2D2D2D] leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="Enter your email" required>
+                <input type="email" name="email" class="shadow appearance-none border rounded w-full py-3 px-3 text-[#2D2D2D] leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="Enter your email">
                 @error('email')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
             <div class="mb-6">
                 <label class="block text-sm font-bold text-white mb-2" for="password">Password</label>
-                <input type="password" name="password" class="shadow appearance-none border rounded w-full py-3 px-3 text-[#2D2D2D] leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="Enter your password" required>
+                <input type="password" name="password" class="shadow appearance-none border rounded w-full py-3 px-3 text-[#2D2D2D] leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="Enter your password">
                 @error('password')
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
