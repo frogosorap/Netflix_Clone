@@ -27,15 +27,15 @@
                         </a>
                     </div>
                     <div id="navbar_links">
-                        <a href="movies">HOME</a>
-                        <a href="browse">BROWSE</a>
-                        <a href="search">SEARCH</a>
-                        @guest <!-- Check if user is a guest (not logged in) -->
-                            <a href="subscribe">SUBSCRIBE</a>
+                        <a href="{{ route('movies.index') }}">HOME</a>
+                        <a href="{{ route('browse') }}">BROWSE</a>
+                        <a href="{{ route('search') }}">SEARCH</a>
+                        @guest
+                            <a href="{{ route('subscribe') }}">SUBSCRIBE</a>
                         @endguest
                         @auth
                             @if(Auth::user()->access_level === 'admin')
-                                   <a href="users">USERS</a>
+                                <a href="{{ route('users.index') }}">USERS</a>
                             @endif
                         @endauth
                      
