@@ -4,6 +4,8 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\WatchHistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCRUDController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Requests\MovieRequest;
@@ -27,7 +29,7 @@ Route::get('/movies', function () {
 Route::get('/movies/create', function () {
     $genres = Genre::all();
     return view('movies.create', ['genres' => $genres]);
-})->name('movies.create');
+})->name('movies.create')->middleware(AdminMiddleware::class);
 
 Route::get('/movies/{movie}/edit', function (Movie $movie) {
     $genres = Genre::all();
@@ -35,11 +37,11 @@ Route::get('/movies/{movie}/edit', function (Movie $movie) {
         'movie' => $movie,
         'genres' => $genres
     ]);
-})->name('movies.edit');
+})->name('movies.edit')->middleware(AdminMiddleware::class);
 
 Route::get('movies/{movie}', function (Movie $movie) {
     return view('movies.show', ['movie' => $movie]);
-})->name('movies.show');
+})->name('movies.show')->middleware(UserMiddleware::class);
 
 Route::post('/movies', function (MovieRequest $request) {
     $movie = Movie::create($request->validated());
@@ -52,7 +54,7 @@ Route::post('/movies', function (MovieRequest $request) {
 
     return redirect()->route('movies.show', ['movie' => $movie->id])
         ->with('success', 'Movie created successfully!');
-})->name('movies.store');
+})->name('movies.store')->middleware(AdminMiddleware::class);
 
 Route::put('/movies/{movie}', function (Movie $movie, MovieRequest $request) {
     $movie->update($request->validated());
@@ -65,13 +67,13 @@ Route::put('/movies/{movie}', function (Movie $movie, MovieRequest $request) {
 
     return redirect()->route('movies.show', ['movie' => $movie->id])
         ->with('success', "Movie updated successfully!");
-})->name('movies.update');
+})->name('movies.update')->middleware(AdminMiddleware::class);
 
 Route::delete('/movies/{movie}', function (Movie $movie) {
     $movie->delete();
     return redirect()->route('movies.index')
         ->with('success', 'Movie deleted successfully!');
-})->name('movies.destroy');
+})->name('movies.destroy')->middleware(AdminMiddleware::class);
 
 
 Route::get('/browse', function (Illuminate\Http\Request $request) {
@@ -136,10 +138,15 @@ Route::get('/profile', function () {
 
 
 Route::get('/watch-history', [WatchHistoryController::class, 'index'])->name('watchHistory.index')->middleware('auth');
-Route::post('/watchHistory/{movie}', [WatchHistoryController::class, 'store'])->name('watchHistory.store');
+Route::post('/watchHistory/{movie}', [WatchHistoryController::class, 'store'])
+    ->name('watchHistory.store')
+    ->middleware('auth');
 
 Route::get('/subscribe', function () {
     return view('subscribe');
 })->name('subscribe');
 
+Route::fallback(function () {
+    return redirect()->route('movies.index');
+});
 Auth::routes();

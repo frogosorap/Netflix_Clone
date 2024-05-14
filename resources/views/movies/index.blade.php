@@ -29,14 +29,15 @@
                             </span>
                         </p>
 
-                        @auth
-                        <form action="{{ route('watchHistory.store', $movie->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn bg-red-600 hover:bg-red-700 mt-2 w-full">Watch Movie</button>
-                        </form>
+                       @if(auth()->check())
+                            <form action="{{ route('watchHistory.store', $movie->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn bg-red-600 hover:bg-red-700 mt-2 w-full">Watch Movie</button>
+                            </form>
                         @else
-                        <a href="{{ route('subscribe') }}" class="bg-red-600 hover:bg-red-700 mt-2 w-full text-white py-3 px-5 rounded-lg inline-block block mx-auto text-center">Subscribe To Watch</a>
-                        @endauth
+                            <a href="{{ route('subscribe') }}" class="bg-red-600 hover:bg-red-700 mt-2 w-full text-white py-3 px-5 rounded-lg inline-block block mx-auto text-center">Subscribe To Watch</a>
+                        @endif
+
                     </div>
                 </div>
             </div>
