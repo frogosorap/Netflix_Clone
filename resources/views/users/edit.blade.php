@@ -25,13 +25,6 @@
                     <p class="text-red-500 text-xs italic">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-4">
-                <label class="block text-sm font-bold text-white mb-2" for="password">User Password</label>
-                <input type="text" name="password" value="{{ $user->password }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" placeholder="User Password">
-                @error('password')
-                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                @enderror
-            </div>
             <div class="flex justify-between items-center">
                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
                 <a href="{{ route('users.index') }}" class="btn bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Back</a>

@@ -34,6 +34,7 @@
                         <div class="mb-4">
                             <p class="text-gray-400"><strong class="text-white">Email:</strong> {{ $user->email }}</p>
                         </div>
+                        <a href="{{ route('users.edit', $user->id) }}" class="text-red-500 hover:underline">Edit Profile</a>
                     </div>
                     <div class="p-4 border-2 border-gray-700 rounded-lg bg-gray-700">
                         <h3 class="text-lg font-semibold mb-2 text-white">Account Settings</h3>
@@ -44,6 +45,11 @@
                         <div class="mb-4">
                             <p class="text-gray-400"><strong class="text-white">Last Updated:</strong> {{ $user->updated_at->format('M d, Y') }}</p>
                         </div>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500 hover:underline">Delete Account</button>
+                    </form>
                     </div>
                 </div>
 

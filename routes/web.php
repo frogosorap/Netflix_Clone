@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WatchHistoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserCRUDController;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 // Define routes for browsing and searching movies
 Route::get('/index', [PagesController::class, "index"]);
 
-Route::resource('/users', UserCRUDController::class);
+Route::resource('/users', UserCRUDController::class)->middleware(AdminMiddleware::class);
 
 Route::get('/movies', function () {
     return view(
@@ -145,6 +146,11 @@ Route::post('/watchHistory/{movie}', [WatchHistoryController::class, 'store'])
 Route::get('/subscribe', function () {
     return view('subscribe');
 })->name('subscribe');
+
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit')->middleware(UserMiddleware::class);
+Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update')->middleware(UserMiddleware::class);
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->middleware(UserMiddleware::class);
+
 
 Route::fallback(function () {
     return redirect()->route('movies.index');
