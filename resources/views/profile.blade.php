@@ -9,8 +9,8 @@
                     <div class="flex items-center">
                         <!-- User Icon -->
                         <div class="rounded-full overflow-hidden w-20 h-20 mr-4">
-                            <img class="w-full h-full object-cover" src="https://stories.infobae.com/wp-content/uploads/2022/02/perfil-1.png" alt="User Icon">
-                        </div>
+    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $user->profile_image) }}" alt="User Icon">
+</div>
                         <h2 class="text-2xl font-semibold text-white">Your Profile</h2>
                     </div>
                     <a href="{{ route('logout') }}"

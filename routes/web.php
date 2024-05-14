@@ -22,7 +22,7 @@ Route::resource('/users', UserCRUDController::class)->middleware(AdminMiddleware
 Route::get('/movies', function () {
     return view(
         'movies.index',
-        ['movies' => Movie::latest()->paginate(10)]
+        ['movies' => Movie::latest()->paginate(12)]
     );
 })->name('movies.index');
 

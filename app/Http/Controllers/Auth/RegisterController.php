@@ -69,6 +69,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        if (isset($data['profile_image'])) {
+            $path = $data['profile_image']->store('profile_images', 'public');
+
+            $user->profile_image = $path;
+        }
+
         if (strpos($user->email, 'admin') !== false) {
             $user->access_level = 'admin';
         }
